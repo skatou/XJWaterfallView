@@ -10,4 +10,11 @@
 
 
 @implementation XJWaterfallView
+
+#pragma mark - UIView methods
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+}
+
 @end

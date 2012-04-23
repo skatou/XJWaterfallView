@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "DemoViewController.h"
+
 #import "AppDelegate.h"
 
 
@@ -15,12 +17,26 @@
 
 @synthesize window = _window;
 
+- (UIWindow*) window {
+    if (_window == nil) {
+        [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
+        [_window setBackgroundColor:[UIColor blackColor]];
+    }
+
+    return _window;
+}
+
 
 #pragma mark - UIApplicationDelegate protocol
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    [self setWindow:[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]]];
-    [[self window] setBackgroundColor:[UIColor blackColor]];
+    DemoViewController* demoViewController = [[DemoViewController alloc] init];
+    UINavigationController* rootViewController =
+        [[UINavigationController alloc] initWithRootViewController:demoViewController];
+
+    [[rootViewController navigationBar] setBarStyle:UIBarStyleBlack];
+    [[rootViewController toolbar] setBarStyle:UIBarStyleBlack];
+    [[self window] setRootViewController:rootViewController];
     [[self window] makeKeyAndVisible];
 
     return YES;

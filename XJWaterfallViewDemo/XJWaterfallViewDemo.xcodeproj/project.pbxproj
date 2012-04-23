@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1223C90B154614C900F4ABDE /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1223C90A154614C900F4ABDE /* DemoViewController.m */; };
 		12E3CFAF1545A4F400D0C94F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFAE1545A4F400D0C94F /* UIKit.framework */; };
 		12E3CFB11545A4F400D0C94F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFB01545A4F400D0C94F /* Foundation.framework */; };
 		12E3CFB31545A4F400D0C94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFB21545A4F400D0C94F /* CoreGraphics.framework */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1223C909154614C900F4ABDE /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		1223C90A154614C900F4ABDE /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		12E3CFAA1545A4F400D0C94F /* XJWaterfallViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XJWaterfallViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12E3CFAE1545A4F400D0C94F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		12E3CFB01545A4F400D0C94F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,6 +80,8 @@
 			children = (
 				12E3CFBD1545A4F400D0C94F /* AppDelegate.h */,
 				12E3CFBE1545A4F400D0C94F /* AppDelegate.m */,
+				1223C909154614C900F4ABDE /* DemoViewController.h */,
+				1223C90A154614C900F4ABDE /* DemoViewController.m */,
 				12E3CFB51545A4F400D0C94F /* Supporting Files */,
 				12E3CFC51545A52800D0C94F /* XJWaterfallView */,
 			);
@@ -168,6 +173,7 @@
 				12E3CFBB1545A4F400D0C94F /* main.m in Sources */,
 				12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */,
 				12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */,
+				1223C90B154614C900F4ABDE /* DemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +277,7 @@
 				12E3CFC41545A4F400D0C94F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
