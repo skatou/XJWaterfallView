@@ -1,0 +1,278 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12E3CFAF1545A4F400D0C94F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFAE1545A4F400D0C94F /* UIKit.framework */; };
+		12E3CFB11545A4F400D0C94F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFB01545A4F400D0C94F /* Foundation.framework */; };
+		12E3CFB31545A4F400D0C94F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E3CFB21545A4F400D0C94F /* CoreGraphics.framework */; };
+		12E3CFB91545A4F400D0C94F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12E3CFB71545A4F400D0C94F /* InfoPlist.strings */; };
+		12E3CFBB1545A4F400D0C94F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFBA1545A4F400D0C94F /* main.m */; };
+		12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFBE1545A4F400D0C94F /* AppDelegate.m */; };
+		12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFC71545A52800D0C94F /* XJWaterfallView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		12E3CFAA1545A4F400D0C94F /* XJWaterfallViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XJWaterfallViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		12E3CFAE1545A4F400D0C94F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		12E3CFB01545A4F400D0C94F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		12E3CFB21545A4F400D0C94F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		12E3CFB61545A4F400D0C94F /* XJWaterfallViewDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XJWaterfallViewDemo-Info.plist"; sourceTree = "<group>"; };
+		12E3CFB81545A4F400D0C94F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		12E3CFBA1545A4F400D0C94F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		12E3CFBC1545A4F400D0C94F /* XJWaterfallViewDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XJWaterfallViewDemo-Prefix.pch"; sourceTree = "<group>"; };
+		12E3CFBD1545A4F400D0C94F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		12E3CFBE1545A4F400D0C94F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		12E3CFC61545A52800D0C94F /* XJWaterfallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJWaterfallView.h; sourceTree = "<group>"; };
+		12E3CFC71545A52800D0C94F /* XJWaterfallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJWaterfallView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		12E3CFA71545A4F400D0C94F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E3CFAF1545A4F400D0C94F /* UIKit.framework in Frameworks */,
+				12E3CFB11545A4F400D0C94F /* Foundation.framework in Frameworks */,
+				12E3CFB31545A4F400D0C94F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		12E3CF9F1545A4F400D0C94F = {
+			isa = PBXGroup;
+			children = (
+				12E3CFAD1545A4F400D0C94F /* Frameworks */,
+				12E3CFAB1545A4F400D0C94F /* Products */,
+				12E3CFB41545A4F400D0C94F /* XJWaterfallViewDemo */,
+			);
+			sourceTree = "<group>";
+		};
+		12E3CFAB1545A4F400D0C94F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				12E3CFAA1545A4F400D0C94F /* XJWaterfallViewDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		12E3CFAD1545A4F400D0C94F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				12E3CFAE1545A4F400D0C94F /* UIKit.framework */,
+				12E3CFB01545A4F400D0C94F /* Foundation.framework */,
+				12E3CFB21545A4F400D0C94F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		12E3CFB41545A4F400D0C94F /* XJWaterfallViewDemo */ = {
+			isa = PBXGroup;
+			children = (
+				12E3CFBD1545A4F400D0C94F /* AppDelegate.h */,
+				12E3CFBE1545A4F400D0C94F /* AppDelegate.m */,
+				12E3CFB51545A4F400D0C94F /* Supporting Files */,
+				12E3CFC51545A52800D0C94F /* XJWaterfallView */,
+			);
+			path = XJWaterfallViewDemo;
+			sourceTree = "<group>";
+		};
+		12E3CFB51545A4F400D0C94F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				12E3CFB71545A4F400D0C94F /* InfoPlist.strings */,
+				12E3CFBA1545A4F400D0C94F /* main.m */,
+				12E3CFB61545A4F400D0C94F /* XJWaterfallViewDemo-Info.plist */,
+				12E3CFBC1545A4F400D0C94F /* XJWaterfallViewDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		12E3CFC51545A52800D0C94F /* XJWaterfallView */ = {
+			isa = PBXGroup;
+			children = (
+				12E3CFC61545A52800D0C94F /* XJWaterfallView.h */,
+				12E3CFC71545A52800D0C94F /* XJWaterfallView.m */,
+			);
+			name = XJWaterfallView;
+			path = ../../XJWaterfallView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		12E3CFA91545A4F400D0C94F /* XJWaterfallViewDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12E3CFC21545A4F400D0C94F /* Build configuration list for PBXNativeTarget "XJWaterfallViewDemo" */;
+			buildPhases = (
+				12E3CFA61545A4F400D0C94F /* Sources */,
+				12E3CFA71545A4F400D0C94F /* Frameworks */,
+				12E3CFA81545A4F400D0C94F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XJWaterfallViewDemo;
+			productName = XJWaterfallViewDemo;
+			productReference = 12E3CFAA1545A4F400D0C94F /* XJWaterfallViewDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		12E3CFA11545A4F400D0C94F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 12E3CFA41545A4F400D0C94F /* Build configuration list for PBXProject "XJWaterfallViewDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 12E3CF9F1545A4F400D0C94F;
+			productRefGroup = 12E3CFAB1545A4F400D0C94F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				12E3CFA91545A4F400D0C94F /* XJWaterfallViewDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		12E3CFA81545A4F400D0C94F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E3CFB91545A4F400D0C94F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		12E3CFA61545A4F400D0C94F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12E3CFBB1545A4F400D0C94F /* main.m in Sources */,
+				12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */,
+				12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		12E3CFB71545A4F400D0C94F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				12E3CFB81545A4F400D0C94F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		12E3CFC01545A4F400D0C94F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		12E3CFC11545A4F400D0C94F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		12E3CFC31545A4F400D0C94F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XJWaterfallViewDemo/XJWaterfallViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "XJWaterfallViewDemo/XJWaterfallViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		12E3CFC41545A4F400D0C94F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "XJWaterfallViewDemo/XJWaterfallViewDemo-Prefix.pch";
+				INFOPLIST_FILE = "XJWaterfallViewDemo/XJWaterfallViewDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		12E3CFA41545A4F400D0C94F /* Build configuration list for PBXProject "XJWaterfallViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12E3CFC01545A4F400D0C94F /* Debug */,
+				12E3CFC11545A4F400D0C94F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		12E3CFC21545A4F400D0C94F /* Build configuration list for PBXNativeTarget "XJWaterfallViewDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				12E3CFC31545A4F400D0C94F /* Debug */,
+				12E3CFC41545A4F400D0C94F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 12E3CFA11545A4F400D0C94F /* Project object */;
+}
