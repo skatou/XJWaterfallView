@@ -30,8 +30,9 @@ const static CGFloat EDGE_MARGIN = 1.0f;
 
 #pragma mark - Initializers and uninitializer
 
-- (id) initWithFrame:(CGRect)frame reuseIdentifier:(NSString*)reuseIdentifier {
-    if ((self = [super initWithFrame:frame]) != nil) {
+- (id) initWithReuseIdentifier:(NSString*)reuseIdentifier {
+    if ((self = [super initWithFrame:CGRectZero]) != nil) {
+        [self setReuseIdentifier:reuseIdentifier];
     }
 
     return self;
@@ -60,7 +61,7 @@ const static CGFloat EDGE_MARGIN = 1.0f;
 #pragma mark - UIView methods
 
 - (void) layoutSubviews {
-    [self layoutSubviews];
+    [super layoutSubviews];
     [imageView_ setFrame:[self imageViewFrame]];
 }
 

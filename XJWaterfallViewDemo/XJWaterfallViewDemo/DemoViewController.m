@@ -6,12 +6,16 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <stdlib.h>
+#import <time.h>
+
+#import "XJPetalView.h"
 #import "XJWaterfallView.h"
 
 #import "DemoViewController.h"
 
 
-@interface DemoViewController() {
+@interface DemoViewController() <XJWaterfallViewDataSource> {
 @private
     XJWaterfallView* waterfallView_;
 }
@@ -30,6 +34,37 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     [[self view] addSubview:[self waterfallView]];
+
+    srand(time(NULL));
+    rand();
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self waterfallView] reloadData];
+}
+
+
+#pragma mark - XJWaterfallViewDataSource protocol
+
+- (NSUInteger) numberOfPetalsForWaterfallView:(XJWaterfallView*)waterfallView {
+    return 100;
+}
+
+- (CGFloat) waterfallView:(XJWaterfallView*)waterfallView normalizedHeightOfPetalViewAtIndex:(NSUInteger)index {
+    return 0.5f + 2.0f * ((CGFloat) rand() / INT_MAX);
+}
+
+- (XJPetalView*) waterfallView:(XJWaterfallView*)waterfallView petalViewAtIndex:(NSUInteger)index {
+    static NSString* IDENTIFIER = @"__ID__";
+    XJPetalView* petalView = [waterfallView dequeueReusablePetalViewWithIdentifier:IDENTIFIER];
+
+    if (petalView == nil) {
+        petalView = [[XJPetalView alloc] initWithReuseIdentifier:IDENTIFIER];
+        [petalView setBackgroundColor:[UIColor lightGrayColor]];
+    }
+
+    return petalView;
 }
 
 
@@ -41,7 +76,7 @@
     if (waterfallView_ == nil) {
         [self setWaterfallView:[[XJWaterfallView alloc] initWithFrame:[[self view] bounds]]];
         [waterfallView_ setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
-        [waterfallView_ setContentSize:CGSizeMake(5000.0f, 500.0f)];
+        [waterfallView_ setDataSource:self];
     }
 
     return waterfallView_;

@@ -10,7 +10,7 @@
 
 
 @interface XJPetalView : UIView
-- (id) initWithFrame:(CGRect)frame reuseIdentifier:(NSString*)reuseIdentifier;
+- (id) initWithReuseIdentifier:(NSString*)reuseIdentifier;
 
 @property (nonatomic, strong, readonly) NSString* reuseIdentifier;
 @property (nonatomic, strong, readonly) UIImageView* imageView;
