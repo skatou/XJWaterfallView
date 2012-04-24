@@ -15,6 +15,7 @@
 		12E3CFBB1545A4F400D0C94F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFBA1545A4F400D0C94F /* main.m */; };
 		12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFBE1545A4F400D0C94F /* AppDelegate.m */; };
 		12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFC71545A52800D0C94F /* XJWaterfallView.m */; };
+		F62AD5D915464B6B00250D43 /* XJPetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F62AD5D815464B6A00250D43 /* XJPetalView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		12E3CFBE1545A4F400D0C94F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		12E3CFC61545A52800D0C94F /* XJWaterfallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJWaterfallView.h; sourceTree = "<group>"; };
 		12E3CFC71545A52800D0C94F /* XJWaterfallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJWaterfallView.m; sourceTree = "<group>"; };
+		F62AD5D715464B6A00250D43 /* XJPetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJPetalView.h; sourceTree = "<group>"; };
+		F62AD5D815464B6A00250D43 /* XJPetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJPetalView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,8 @@
 		12E3CFC51545A52800D0C94F /* XJWaterfallView */ = {
 			isa = PBXGroup;
 			children = (
+				F62AD5D715464B6A00250D43 /* XJPetalView.h */,
+				F62AD5D815464B6A00250D43 /* XJPetalView.m */,
 				12E3CFC61545A52800D0C94F /* XJWaterfallView.h */,
 				12E3CFC71545A52800D0C94F /* XJWaterfallView.m */,
 			);
@@ -174,6 +179,7 @@
 				12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */,
 				12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */,
 				1223C90B154614C900F4ABDE /* DemoViewController.m in Sources */,
+				F62AD5D915464B6B00250D43 /* XJPetalView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
