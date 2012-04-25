@@ -42,6 +42,14 @@
     return [[self petalViewInfos] count];
 }
 
+- (XJPentalViewInfo*) petalViewInfoForRow:(NSUInteger)row {
+    if (row < [self numberOfPetals]) {
+        return [[self petalViewInfos] objectAtIndex:row];
+    } else {
+        return nil;
+    }
+}
+
 - (void) addPetalViewInfo:(XJPentalViewInfo*)pentalViewInfo {
     [[self petalViewInfos] addObject:pentalViewInfo];
 }

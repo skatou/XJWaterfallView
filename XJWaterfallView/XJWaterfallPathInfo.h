@@ -18,5 +18,6 @@
 @property (nonatomic, assign, readonly) CGFloat height;
 
 - (NSUInteger) numberOfPetals;
+- (XJPentalViewInfo*) petalViewInfoForRow:(NSUInteger)row;
 - (void) addPetalViewInfo:(XJPentalViewInfo*)pentalViewInfo;
 @end

@@ -15,7 +15,7 @@
 
 @interface XJWaterfallView() {
 @private
-    __weak id<XJWaterfallViewDataSource> dataSource_;
+    __unsafe_unretained id<XJWaterfallViewDataSource> dataSource_;
     UIView* backgroundView_;
     CGFloat petalViewPadding_;
     CGFloat rightMargin_;
@@ -29,8 +29,14 @@
 @property (nonatomic, assign) NSUInteger numberOfPaths;
 @property (nonatomic, strong) NSArray* pathInfos;
 
+- (XJWaterfallPathInfo*) infoOfShortestPath;
+- (XJWaterfallPathInfo*) infoOfHighestPath;
+
 - (void) prepareParametersNeededForLayout;
 - (void) resetContentSizeByAppendingPetalViews;
+
+- (void) tilePetalViewsOnPath:(XJWaterfallPathInfo*)pathInfo minimumY:(CGFloat)minY maximumY:(CGFloat)maxY;
+- (NSInteger) lowerBoundIndexWithY:(CGFloat)y pathInfo:(XJWaterfallPathInfo*)pathInfo;
 
 - (void) pushPetalViewForReuse:(XJPetalView*)petalView;
 - (XJPetalView*) popReusablePetalViewWithIdentifier:(NSString*)identifier;
@@ -123,6 +129,14 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
             [[self visiblePetalViews] removeObject:petalView];
         }
     }
+
+    // Tiles invisible petal views.
+    CGFloat minY = CGRectGetMinY(bounds);
+    CGFloat maxY = CGRectGetMaxX(bounds);
+
+    [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        [self tilePetalViewsOnPath:((XJWaterfallPathInfo*) obj) minimumY:minY maximumY:maxY];
+    }];
 }
 
 
@@ -150,6 +164,38 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
 
 @synthesize numberOfPaths = numberOfPaths_;
 @synthesize pathInfos = pathInfos_;
+
+- (XJWaterfallPathInfo*) infoOfShortestPath {
+    __block XJWaterfallPathInfo* bestPathInfo = nil;
+    __block CGFloat minValue = 0.0f;
+
+    [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        XJWaterfallPathInfo* pathInfo = (XJWaterfallPathInfo*) obj;
+
+        if (bestPathInfo == nil || [pathInfo height] < minValue) {
+            bestPathInfo = pathInfo;
+            minValue = [pathInfo height];
+        }
+    }];
+
+    return bestPathInfo;
+}
+
+- (XJWaterfallPathInfo*) infoOfHighestPath {
+    __block XJWaterfallPathInfo* bestPathInfo = nil;
+    __block CGFloat maxValue = 0.0f;
+
+    [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        XJWaterfallPathInfo* pathInfo = (XJWaterfallPathInfo*) obj;
+
+        if (bestPathInfo == nil || [pathInfo height] > maxValue) {
+            bestPathInfo = pathInfo;
+            maxValue = [pathInfo height];
+        }
+    }];
+
+    return bestPathInfo;
+}
 
 - (void) prepareParametersNeededForLayout {
     if ([[self dataSource] respondsToSelector:@selector(numberOfPathsForWaterfallView:)] == YES) {
@@ -221,7 +267,7 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
     NSUInteger numberOfPetal = [[self dataSource] numberOfPetalsForWaterfallView:self];
 
     for (NSUInteger index = fromIndex; index < numberOfPetal; ++index) {
-        XJWaterfallPathInfo* pathInfo = [[self pathInfos] valueForKeyPath:@"@min.height"];
+        XJWaterfallPathInfo* pathInfo = [self infoOfShortestPath];
         CGFloat x = [pathInfo x];
         CGFloat y = [pathInfo height] + [self petalViewPadding];
         CGFloat width = [pathInfo width];
@@ -234,11 +280,52 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
         [pathInfo addPetalViewInfo:petalViewInfo];
     }
 
-    contentFrame.size.height = [[[self pathInfos] valueForKeyPath:@"@max.height"] height] + [self petalViewPadding];
+    contentFrame.size.height = [[self infoOfHighestPath] height] + [self petalViewPadding];
 
     // Resets content size.
     contentFrame = CGRectIntegral(contentFrame);
     [self setContentSize:contentFrame.size];
+}
+
+- (void) tilePetalViewsOnPath:(XJWaterfallPathInfo*)pathInfo minimumY:(CGFloat)minY maximumY:(CGFloat)maxY {
+    NSInteger index = [self lowerBoundIndexWithY:maxY pathInfo:pathInfo];
+
+    for (index--; index >= 0; --index) {
+        XJPentalViewInfo* petalViewInfo = [pathInfo petalViewInfoForRow:index];
+        CGRect petalViewFrame = [petalViewInfo frame];
+
+        if (petalViewInfo != nil && CGRectGetMaxY(petalViewFrame) > minY) {
+            XJPetalView* petalView = [[self dataSource] waterfallView:self petalViewAtIndex:[petalViewInfo index]];
+
+            [petalView setFrame:CGRectIntegral(petalViewFrame)];
+            [self addSubview:petalView];
+            [[self visiblePetalViews] addObject:petalView];
+        } else {
+            break;
+        }
+    }
+}
+
+- (NSInteger) lowerBoundIndexWithY:(CGFloat)y pathInfo:(XJWaterfallPathInfo*)pathInfo {
+    NSInteger index = [pathInfo numberOfPetals];
+    NSInteger left = 0;
+    NSInteger right = [pathInfo numberOfPetals] - 1;
+
+    while (left <= right) {
+        NSInteger mid = (left + right) / 2;
+
+        if (CGRectGetMinY([[pathInfo petalViewInfoForRow:mid] frame]) >= y) {
+            if (index == NSNotFound || mid > index) {
+                index = mid;
+            }
+
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return index;
 }
 
 - (void) pushPetalViewForReuse:(XJPetalView*)petalView {

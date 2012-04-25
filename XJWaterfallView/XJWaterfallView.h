@@ -25,7 +25,7 @@
 
 
 @interface XJWaterfallView : UIScrollView
-@property (nonatomic, weak) id<XJWaterfallViewDataSource> dataSource;
+@property (nonatomic, assign) id<XJWaterfallViewDataSource> dataSource;
 @property (nonatomic, strong) UIView* backgroundView;
 @property (nonatomic, assign) CGFloat petalViewPadding;
 @property (nonatomic, assign) CGFloat rightMargin;
