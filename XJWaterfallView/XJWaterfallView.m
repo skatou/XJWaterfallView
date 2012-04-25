@@ -7,6 +7,8 @@
 //
 
 #import "XJPetalView.h"
+#import "XJPetalViewInfo.h"
+#import "XJWaterfallPathInfo.h"
 
 #import "XJWaterfallView.h"
 
@@ -15,27 +17,19 @@
 @private
     __weak id<XJWaterfallViewDataSource> dataSource_;
     UIView* backgroundView_;
+    CGFloat petalViewPadding_;
+    CGFloat rightMargin_;
     NSMutableArray* visiblePetalViews_;
     NSMutableDictionary* reusablePetalViews_;
     NSUInteger numberOfPaths_;
-    NSArray* pathStartXs_;
-    NSArray* pathWidths_;
-    NSMutableArray* currentPathHeights_;
-    NSMutableArray* petalViewStartYs_;
-    NSMutableArray* petalViewFrames_;
+    NSArray* pathInfos_;
 }
 @property (nonatomic, strong) NSMutableArray* visiblePetalViews;
 @property (nonatomic, strong) NSMutableDictionary* reusablePetalViews;
 @property (nonatomic, assign) NSUInteger numberOfPaths;
-@property (nonatomic, strong) NSArray* pathStartXs;
-@property (nonatomic, strong) NSArray* pathWidths;
-@property (nonatomic, strong) NSMutableArray* currentPathHeights;
-@property (nonatomic, strong) NSMutableArray* petalViewFrames;
+@property (nonatomic, strong) NSArray* pathInfos;
 
-+ (CGFloat) maximumValueInArray:(NSArray*)array;
-+ (NSInteger) indexOfMinimumValueInArray:(NSArray*)array;
-
-- (void) prepareParametersNeedForLayout;
+- (void) prepareParametersNeededForLayout;
 - (void) resetContentSizeByAppendingPetalViews;
 
 - (void) pushPetalViewForReuse:(XJPetalView*)petalView;
@@ -48,15 +42,17 @@
 #pragma mark - Private static members
 
 const static NSUInteger DEFAULT_NUMBER_OF_PATHS = 3;
-const static CGFloat RIGHT_MARGIN = 9.0f;
-const static CGFloat PADDING = 5.0f;
+const static CGFloat DEFAULT_PETAL_VIEW_PADDING = 5.0f;
+const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
 
 
 #pragma mark - Initializers and uninitializers
 
 - (id) initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame]) != nil) {
-        [self addSubview:[self backgroundView]];
+        [self setBackgroundColor:[UIColor whiteColor]];
+        [self setPetalViewPadding:DEFAULT_PETAL_VIEW_PADDING];
+        [self setRightMargin:DEFAULT_RIGHT_MARGIN];
     }
 
     return self;
@@ -65,14 +61,8 @@ const static CGFloat PADDING = 5.0f;
 
 #pragma mark - Public methods
 
-- (UIView*) backgroundView {
-    if (backgroundView_ == nil) {
-        [self setBackgroundView:[[UIView alloc] initWithFrame:CGRectZero]];
-        [backgroundView_ setBackgroundColor:[UIColor whiteColor]];
-    }
-
-    return backgroundView_;
-}
+@synthesize dataSource = dataSource_;
+@synthesize backgroundView = backgroundView_;
 
 - (void) setBackgroundView:(UIView*)backgroundView {
     if (backgroundView != backgroundView_) {
@@ -81,10 +71,13 @@ const static CGFloat PADDING = 5.0f;
         }
 
         backgroundView_ = backgroundView;
+        [backgroundView_ setFrame:[self bounds]];
+        [self addSubview:backgroundView_];
     }
 }
 
-@synthesize dataSource = dataSource_;
+@synthesize petalViewPadding = petalViewPadding_;
+@synthesize rightMargin = rightMargin_;
 
 - (XJPetalView*) dequeueReusablePetalViewWithIdentifier:(NSString*)identifier {
     XJPetalView* petalView = [self popReusablePetalViewWithIdentifier:identifier];
@@ -104,7 +97,7 @@ const static CGFloat PADDING = 5.0f;
     [self setReusablePetalViews:nil];
 
     // Resets path count, path widths and heights, as well as content size.
-    [self prepareParametersNeedForLayout];
+    [self prepareParametersNeededForLayout];
     [self resetContentSizeByAppendingPetalViews];
 
     // Scrolls to top and tiles new petal views.
@@ -133,29 +126,6 @@ const static CGFloat PADDING = 5.0f;
 }
 
 
-#pragma mark - Private static methods
-
-+ (CGFloat) maximumValueInArray:(NSArray*)array {
-    return [[array valueForKeyPath:@"@max.floatValue"] floatValue];
-}
-
-+ (NSInteger) indexOfMinimumValueInArray:(NSArray*)array {
-    __block NSInteger index = NSNotFound;
-    __block NSNumber* minValue = [NSNumber numberWithFloat:-1.0f];
-
-    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
-        NSNumber* now = (NSNumber*) obj;
-
-        if ([minValue floatValue] < 0.0f || [now compare:minValue] == NSOrderedAscending) {
-            index = idx;
-            minValue = now;
-        }
-    }];
-
-    return index;
-}
-
-
 #pragma mark - Private methods
 
 @synthesize visiblePetalViews = visiblePetalViews_;
@@ -179,34 +149,22 @@ const static CGFloat PADDING = 5.0f;
 }
 
 @synthesize numberOfPaths = numberOfPaths_;
-@synthesize pathStartXs = pathStartXs_;
-@synthesize pathWidths = pathWidths_;
-@synthesize currentPathHeights = currentPathHeights_;
-@synthesize petalViewFrames = petalViewFrames_;
+@synthesize pathInfos = pathInfos_;
 
-- (NSMutableArray*) petalViewFrames {
-    if (petalViewFrames_ == nil) {
-        [self setPetalViewFrames:[NSMutableArray arrayWithCapacity:0]];
-    }
-
-    return petalViewFrames_;
-}
-
-- (void) prepareParametersNeedForLayout {
+- (void) prepareParametersNeededForLayout {
     if ([[self dataSource] respondsToSelector:@selector(numberOfPathsForWaterfallView:)] == YES) {
         [self setNumberOfPaths:[[self dataSource] numberOfPathsForWaterfallView:self]];
     } else {
         [self setNumberOfPaths:DEFAULT_NUMBER_OF_PATHS];
     }
 
-    if ([self numberOfPaths] == 0) {
-        [self setPathWidths:nil];
-        [self setCurrentPathHeights:nil];
+    [self setPathInfos:nil];
 
+    if ([self numberOfPaths] == 0) {
         return;
     }
 
-    CGFloat spaceWidth = [self numberOfPaths] * PADDING + RIGHT_MARGIN;
+    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewPadding] + [self rightMargin];
     CGFloat fixedPathWidth = -1.0f;
 
     if ([[self dataSource] respondsToSelector:@selector(waterfallView:widthOfPathOnColumn:)] == NO) {
@@ -217,10 +175,8 @@ const static CGFloat PADDING = 5.0f;
         }
     }
 
-    CGFloat pathStartX = PADDING;
-    NSMutableArray* pathStartXs = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
-    NSMutableArray* pathWidths = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
-    NSMutableArray* pathHeights = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
+    CGFloat pathStartX = [self petalViewPadding];
+    NSMutableArray* pathInfos = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
 
     for (NSUInteger col = 0; col < [self numberOfPaths]; ++col) {
         CGFloat pathWidth = 0.0f;
@@ -231,15 +187,15 @@ const static CGFloat PADDING = 5.0f;
             pathWidth = fixedPathWidth;
         }
 
-        [pathStartXs addObject:[NSNumber numberWithFloat:pathStartX]];
-        [pathWidths addObject:[NSNumber numberWithFloat:pathWidth]];
-        [pathHeights addObject:[NSNumber numberWithFloat:PADDING]];
-        pathStartX += pathWidth + PADDING;
+        XJWaterfallPathInfo* pathInfo = [[XJWaterfallPathInfo alloc] init];
+
+        [pathInfo setX:pathStartX];
+        [pathInfo setWidth:pathWidth];
+        [pathInfos addObject:pathInfo];
+        pathStartX += pathWidth + [self petalViewPadding];
     }
 
-    [self setPathStartXs:pathStartXs];
-    [self setPathWidths:pathWidths];
-    [self setCurrentPathHeights:pathHeights];
+    [self setPathInfos:pathInfos];
 }
 
 - (void) resetContentSizeByAppendingPetalViews {
@@ -249,31 +205,36 @@ const static CGFloat PADDING = 5.0f;
         return;
     }
 
-    CGFloat spaceWidth = [self numberOfPaths] * PADDING + RIGHT_MARGIN;
-    CGRect contentFrame = CGRectMake(0.0f, 0.0f, spaceWidth, 0.0f);
+    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewPadding] + [self rightMargin];
+    __block CGRect contentFrame = CGRectMake(0.0f, 0.0f, spaceWidth, 0.0f);
+    __block NSUInteger fromIndex = 0;
 
     // Calculates content width.
-    for (NSUInteger col = 0; col < [self numberOfPaths]; ++col) {
-        contentFrame.size.width += [[[self pathWidths] objectAtIndex:col] floatValue];
-    }
+    [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
+        XJWaterfallPathInfo* pathInfo = (XJWaterfallPathInfo*) obj;
+
+        contentFrame.size.width += [pathInfo width];
+        fromIndex += [pathInfo numberOfPetals];
+    }];
 
     // Calculates content height, at the same time calculates frame of each petal view.
     NSUInteger numberOfPetal = [[self dataSource] numberOfPetalsForWaterfallView:self];
 
-    for (NSUInteger index = [[self petalViewFrames] count]; index < numberOfPetal; ++index) {
-        NSInteger pathColumn = [[self class] indexOfMinimumValueInArray:[self currentPathHeights]];
-        CGFloat x = [[[self pathStartXs] objectAtIndex:pathColumn] floatValue];
-        CGFloat y = [[[self currentPathHeights] objectAtIndex:pathColumn] floatValue];
-        CGFloat width = [[[self pathWidths] objectAtIndex:pathColumn] floatValue];
+    for (NSUInteger index = fromIndex; index < numberOfPetal; ++index) {
+        XJWaterfallPathInfo* pathInfo = [[self pathInfos] valueForKeyPath:@"@min.height"];
+        CGFloat x = [pathInfo x];
+        CGFloat y = [pathInfo height] + [self petalViewPadding];
+        CGFloat width = [pathInfo width];
         CGFloat normalizedHeight = [[self dataSource] waterfallView:self normalizedHeightOfPetalViewAtIndex:index];
         CGFloat height = normalizedHeight * width;
+        XJPentalViewInfo* petalViewInfo = [[XJPentalViewInfo alloc] init];
 
-        [[self petalViewFrames] addObject:[NSValue valueWithCGRect:CGRectIntegral(CGRectMake(x, y, width, height))]];
-        [[self currentPathHeights] replaceObjectAtIndex:pathColumn
-            withObject:[NSNumber numberWithFloat:(y + height + PADDING)]];
+        [petalViewInfo setIndex:index];
+        [petalViewInfo setFrame:CGRectMake(x, y, width, height)];
+        [pathInfo addPetalViewInfo:petalViewInfo];
     }
 
-    contentFrame.size.height = [[self class] maximumValueInArray:[self currentPathHeights]];
+    contentFrame.size.height = [[[self pathInfos] valueForKeyPath:@"@max.height"] height] + [self petalViewPadding];
 
     // Resets content size.
     contentFrame = CGRectIntegral(contentFrame);
@@ -302,14 +263,14 @@ const static CGFloat PADDING = 5.0f;
 
     NSMutableArray* petalViews = [[self reusablePetalViews] objectForKey:identifier];
 
-    if ([petalViews count] > 0) {
+    if ([petalViews count] == 0) {
+        return nil;
+    } else {
         XJPetalView* petalView = [petalViews lastObject];
 
         [petalViews removeLastObject];
 
         return petalView;
-    } else {
-        return nil;
     }
 }
 

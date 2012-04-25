@@ -16,6 +16,8 @@
 		12E3CFBF1545A4F400D0C94F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFBE1545A4F400D0C94F /* AppDelegate.m */; };
 		12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12E3CFC71545A52800D0C94F /* XJWaterfallView.m */; };
 		F62AD5D915464B6B00250D43 /* XJPetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = F62AD5D815464B6A00250D43 /* XJPetalView.m */; };
+		F675FC581547F6E900067596 /* XJPetalViewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F675FC571547F6E900067596 /* XJPetalViewInfo.m */; };
+		F675FC5C1547F70000067596 /* XJWaterfallPathInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F675FC5B1547F70000067596 /* XJWaterfallPathInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		12E3CFC71545A52800D0C94F /* XJWaterfallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJWaterfallView.m; sourceTree = "<group>"; };
 		F62AD5D715464B6A00250D43 /* XJPetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJPetalView.h; sourceTree = "<group>"; };
 		F62AD5D815464B6A00250D43 /* XJPetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJPetalView.m; sourceTree = "<group>"; };
+		F675FC561547F6E900067596 /* XJPetalViewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJPetalViewInfo.h; sourceTree = "<group>"; };
+		F675FC571547F6E900067596 /* XJPetalViewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJPetalViewInfo.m; sourceTree = "<group>"; };
+		F675FC5A1547F70000067596 /* XJWaterfallPathInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XJWaterfallPathInfo.h; sourceTree = "<group>"; };
+		F675FC5B1547F70000067596 /* XJWaterfallPathInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XJWaterfallPathInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +113,10 @@
 			children = (
 				F62AD5D715464B6A00250D43 /* XJPetalView.h */,
 				F62AD5D815464B6A00250D43 /* XJPetalView.m */,
+				F675FC561547F6E900067596 /* XJPetalViewInfo.h */,
+				F675FC571547F6E900067596 /* XJPetalViewInfo.m */,
+				F675FC5A1547F70000067596 /* XJWaterfallPathInfo.h */,
+				F675FC5B1547F70000067596 /* XJWaterfallPathInfo.m */,
 				12E3CFC61545A52800D0C94F /* XJWaterfallView.h */,
 				12E3CFC71545A52800D0C94F /* XJWaterfallView.m */,
 			);
@@ -180,6 +190,8 @@
 				12E3CFC81545A52800D0C94F /* XJWaterfallView.m in Sources */,
 				1223C90B154614C900F4ABDE /* DemoViewController.m in Sources */,
 				F62AD5D915464B6B00250D43 /* XJPetalView.m in Sources */,
+				F675FC581547F6E900067596 /* XJPetalViewInfo.m in Sources */,
+				F675FC5C1547F70000067596 /* XJWaterfallPathInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
