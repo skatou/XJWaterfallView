@@ -130,9 +130,9 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
         }
     }
 
-    // Tiles invisible petal views.
+    // Tiles visible petal views.
     CGFloat minY = CGRectGetMinY(bounds);
-    CGFloat maxY = CGRectGetMaxX(bounds);
+    CGFloat maxY = CGRectGetMaxY(bounds);
 
     [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
         [self tilePetalViewsOnPath:((XJWaterfallPathInfo*) obj) minimumY:minY maximumY:maxY];
@@ -297,9 +297,11 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
         if (petalViewInfo != nil && CGRectGetMaxY(petalViewFrame) > minY) {
             XJPetalView* petalView = [[self dataSource] waterfallView:self petalViewAtIndex:[petalViewInfo index]];
 
-            [petalView setFrame:CGRectIntegral(petalViewFrame)];
-            [self addSubview:petalView];
-            [[self visiblePetalViews] addObject:petalView];
+            if ([petalView superview] == nil) {
+                [petalView setFrame:CGRectIntegral(petalViewFrame)];
+                [self addSubview:petalView];
+                [[self visiblePetalViews] addObject:petalView];
+            }
         } else {
             break;
         }
@@ -315,7 +317,7 @@ const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
         NSInteger mid = (left + right) / 2;
 
         if (CGRectGetMinY([[pathInfo petalViewInfoForRow:mid] frame]) >= y) {
-            if (index == NSNotFound || mid > index) {
+            if (mid < index) {
                 index = mid;
             }
 
