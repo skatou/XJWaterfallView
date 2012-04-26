@@ -14,6 +14,7 @@
 #pragma mark - Public methods
 
 @synthesize index = index_;
+@synthesize row = row_;
 @synthesize frame = frame_;
 
 @end
