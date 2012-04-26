@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface XJPentalViewInfo : NSObject {
+@interface XJPetalViewInfo : NSObject {
 @private
     NSUInteger index_;
     CGRect frame_;

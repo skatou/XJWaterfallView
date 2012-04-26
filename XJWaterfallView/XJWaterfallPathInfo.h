@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class XJPentalViewInfo;
+@class XJPetalViewInfo;
 
 @interface XJWaterfallPathInfo : NSObject
 @property (nonatomic, assign) NSUInteger column;
@@ -18,6 +18,6 @@
 @property (nonatomic, assign, readonly) CGFloat height;
 
 - (NSUInteger) numberOfPetals;
-- (XJPentalViewInfo*) petalViewInfoForRow:(NSUInteger)row;
-- (void) addPetalViewInfo:(XJPentalViewInfo*)pentalViewInfo;
+- (XJPetalViewInfo*) petalViewInfoForRow:(NSUInteger)row;
+- (void) addPetalViewInfo:(XJPetalViewInfo*)petalViewInfo;
 @end

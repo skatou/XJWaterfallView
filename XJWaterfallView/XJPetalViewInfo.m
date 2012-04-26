@@ -9,7 +9,7 @@
 #import "XJPetalViewInfo.h"
 
 
-@implementation XJPentalViewInfo
+@implementation XJPetalViewInfo
 
 #pragma mark - Public methods
 
