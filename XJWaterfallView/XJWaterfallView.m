@@ -19,7 +19,7 @@
 @private
     __unsafe_unretained id<XJWaterfallViewDataSource> dataSource_;
     UIView* backgroundView_;
-    CGFloat petalViewPadding_;
+    CGFloat petalViewGap_;
     CGFloat rightMargin_;
     NSArray* visiblePetalViews_;
     NSMutableDictionary* reusablePetalViews_;
@@ -56,7 +56,7 @@
 #pragma mark - Private static members
 
 const static NSUInteger DEFAULT_NUMBER_OF_PATHS = 3;
-const static CGFloat DEFAULT_PETAL_VIEW_PADDING = 5.0f;
+const static CGFloat DEFAULT_PETAL_VIEW_GAP = 5.0f;
 const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
 
 static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
@@ -67,7 +67,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
 - (id) initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame]) != nil) {
         [self setBackgroundColor:[UIColor whiteColor]];
-        [self setPetalViewPadding:DEFAULT_PETAL_VIEW_PADDING];
+        [self setPetalViewGap:DEFAULT_PETAL_VIEW_GAP];
         [self setRightMargin:DEFAULT_RIGHT_MARGIN];
     }
 
@@ -104,7 +104,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     }
 }
 
-@synthesize petalViewPadding = petalViewPadding_;
+@synthesize petalViewGap = petalViewGap_;
 @synthesize rightMargin = rightMargin_;
 
 - (XJPetalView*) dequeueReusablePetalViewWithIdentifier:(NSString*)identifier {
@@ -206,7 +206,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         return;
     }
 
-    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewPadding] + [self rightMargin];
+    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewGap] + [self rightMargin];
     CGFloat fixedPathWidth = -1.0f;
 
     if ([[self dataSource] respondsToSelector:@selector(waterfallView:widthOfPathOnColumn:)] == NO) {
@@ -217,7 +217,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         }
     }
 
-    CGFloat pathStartX = [self petalViewPadding];
+    CGFloat pathStartX = [self petalViewGap];
     NSMutableArray* visiblePetalViews = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
     NSMutableArray* pathInfos = [NSMutableArray arrayWithCapacity:[self numberOfPaths]];
 
@@ -238,7 +238,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         [pathInfo setX:pathStartX];
         [pathInfo setWidth:pathWidth];
         [pathInfos addObject:pathInfo];
-        pathStartX += pathWidth + [self petalViewPadding];
+        pathStartX += pathWidth + [self petalViewGap];
     }
 
     [self setVisiblePetalViews:visiblePetalViews];
@@ -252,7 +252,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         return;
     }
 
-    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewPadding] + [self rightMargin];
+    CGFloat spaceWidth = [self numberOfPaths] * [self petalViewGap] + [self rightMargin];
     __block CGRect contentFrame = CGRectMake(0.0f, 0.0f, spaceWidth, 0.0f);
     __block NSUInteger fromIndex = 0;
 
@@ -270,7 +270,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     for (NSUInteger index = fromIndex; index < numberOfPetal; ++index) {
         XJWaterfallPathInfo* pathInfo = [self infoOfShortestPath];
         CGFloat x = [pathInfo x];
-        CGFloat y = [pathInfo height] + [self petalViewPadding];
+        CGFloat y = [pathInfo height] + [self petalViewGap];
         CGFloat width = [pathInfo width];
         CGFloat normalizedHeight = [[self dataSource] waterfallView:self normalizedHeightOfPetalViewAtIndex:index];
         CGFloat height = normalizedHeight * width;
@@ -282,7 +282,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         [pathInfo addPetalViewInfo:petalViewInfo];
     }
 
-    contentFrame.size.height = [[self infoOfHighestPath] height] + [self petalViewPadding];
+    contentFrame.size.height = [[self infoOfHighestPath] height] + [self petalViewGap];
 
     // Resets content size.
     contentFrame = CGRectIntegral(contentFrame);
