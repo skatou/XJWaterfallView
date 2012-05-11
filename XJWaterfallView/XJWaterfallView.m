@@ -404,7 +404,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     while (left <= right) {
         NSInteger mid = (left + right) / 2;
 
-        if (CGRectGetMinY([[pathInfo petalViewInfoForRow:mid] frame]) < y) {
+        if (CGRectGetMaxY([[pathInfo petalViewInfoForRow:mid] frame]) < y) {
             left = mid + 1;
         } else {
             right = mid - 1;
