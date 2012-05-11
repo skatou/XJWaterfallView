@@ -6,10 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "XJPetalView.h"
 
 
-@class XJPetalView;
 @class XJWaterfallView;
 
 @protocol XJWaterfallViewDataSource <NSObject>
