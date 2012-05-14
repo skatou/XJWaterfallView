@@ -128,6 +128,11 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     [self scrollsToTop];
 }
 
+- (void) appendPetals {
+    [self resetContentSizeByAppendingPetalViews];
+    [self setNeedsLayout];
+}
+
 
 #pragma mark - UIView methods
 

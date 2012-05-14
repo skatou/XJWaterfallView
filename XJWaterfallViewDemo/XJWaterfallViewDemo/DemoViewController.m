@@ -15,11 +15,15 @@
 #import "DemoViewController.h"
 
 
-@interface DemoViewController() <XJWaterfallViewDataSource> {
+@interface DemoViewController() <UIScrollViewDelegate, XJWaterfallViewDataSource> {
 @private
     XJWaterfallView* waterfallView_;
+    NSInteger numberOfPetals_;
+    bool isLoading_;
 }
 @property (nonatomic, strong) XJWaterfallView* waterfallView;
+
+- (void) loadMorePetals:(void (^)())onComplete;
 @end
 
 
@@ -41,14 +45,27 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    numberOfPetals_ = 100;
     [[self waterfallView] reloadData];
+}
+
+
+#pragma mark - UIScrollViewDelegate protocol
+
+- (void) scrollViewDidScroll:(UIScrollView*)scrollView {
+    if ([[self waterfallView] contentOffset].y + [[self waterfallView] bounds].size.height >
+            [[self waterfallView] contentSize].height) {
+        [self loadMorePetals:^{
+            [[self waterfallView] appendPetals];
+        }];
+    }
 }
 
 
 #pragma mark - XJWaterfallViewDataSource protocol
 
 - (NSUInteger) numberOfPetalsForWaterfallView:(XJWaterfallView*)waterfallView {
-    return 100;
+    return numberOfPetals_;
 }
 
 - (CGFloat) waterfallView:(XJWaterfallView*)waterfallView normalizedHeightOfPetalViewAtIndex:(NSUInteger)index {
@@ -77,9 +94,24 @@
         [self setWaterfallView:[[XJWaterfallView alloc] initWithFrame:[[self view] bounds]]];
         [waterfallView_ setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
         [waterfallView_ setDataSource:self];
+        [waterfallView_ setDelegate:self];
     }
 
     return waterfallView_;
+}
+
+- (void) loadMorePetals:(void (^)())onComplete {
+    if (!isLoading_) {
+        isLoading_ = true;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2.0 * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+            numberOfPetals_ += 100;
+            isLoading_ = false;
+
+            if (onComplete != nil) {
+                onComplete();
+            }
+        });
+    }
 }
 
 @end

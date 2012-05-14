@@ -32,4 +32,5 @@
 - (XJPetalView*) dequeueReusablePetalViewWithIdentifier:(NSString*)identifier;
 
 - (void) reloadData;
+- (void) appendPetals;
 @end
