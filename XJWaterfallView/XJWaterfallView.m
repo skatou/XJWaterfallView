@@ -57,7 +57,7 @@
 
 const static NSUInteger DEFAULT_NUMBER_OF_PATHS = 3;
 const static CGFloat DEFAULT_PETAL_VIEW_GAP = 5.0f;
-const static CGFloat DEFAULT_RIGHT_MARGIN = 9.0f;
+const static CGFloat DEFAULT_RIGHT_MARGIN = 5.0f;
 
 static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
 
@@ -289,6 +289,10 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
 
     contentFrame.size.height = [[self infoOfHighestPath] height] + [self petalViewGap];
 
+    if (contentFrame.size.height <= [self bounds].size.height) {
+        contentFrame.size.height = [self bounds].size.height + 1.0f;
+    }
+
     // Resets content size.
     contentFrame = CGRectIntegral(contentFrame);
     [self setContentSize:contentFrame.size];
@@ -382,7 +386,14 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     [[petalView layer] setValue:[NSNumber numberWithInteger:[petalViewInfo row]] forKey:PETAL_VIEW_ROW_KEY];
     [petalView setFrame:CGRectIntegral([petalViewInfo frame])];
     [petalViews addObject:petalView];
-    [self addSubview:petalView];
+
+    NSInteger count = [[self subviews] count];
+
+    if (count == 0) {
+        [self addSubview:petalView];
+    } else {
+        [self insertSubview:petalView atIndex:(count - 1)];
+    }
 }
 
 - (void) reloadPetalViewsOnPath:(XJWaterfallPathInfo*)pathInfo petalViewList:(NSMutableArray*)petalViews
