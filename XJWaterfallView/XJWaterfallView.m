@@ -126,6 +126,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
 
     // Scrolls to top and tiles new petal views.
     [self scrollsToTop];
+    [self setNeedsLayout];
 }
 
 - (void) appendPetals {
