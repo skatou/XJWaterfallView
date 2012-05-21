@@ -148,14 +148,6 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     [[self pathInfos] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL* stop) {
         [self tilePetalViewsOnPath:((XJWaterfallPathInfo*) obj) minimumY:minY maximumY:maxY];
     }];
-
-    // Always enables scrolling.
-    CGSize contentSize = [self contentSize];
-
-    if (contentSize.height <= [self bounds].size.height) {
-        contentSize.height = [self bounds].size.height + 1.0f;
-        [self setContentSize:contentSize];
-    }
 }
 
 
