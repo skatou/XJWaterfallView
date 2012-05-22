@@ -9,6 +9,15 @@
 #import "XJPetalViewInfo.h"
 
 
+@interface XJPetalViewInfo() {
+@private
+    NSUInteger index_;
+    NSUInteger row_;
+    CGRect frame_;
+}
+@end
+
+
 @implementation XJPetalViewInfo
 
 #pragma mark - Public methods

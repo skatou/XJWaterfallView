@@ -74,6 +74,15 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     return self;
 }
 
+- (void) dealloc {
+    [self setDataSource:nil];
+    [self setBackgroundView:nil];
+    [self setLoadMoreIndicator:nil];
+    [self setVisiblePetalViews:nil];
+    [self setReusablePetalViews:nil];
+    [self setPathInfos:nil];
+}
+
 
 #pragma mark - Public static methods
 

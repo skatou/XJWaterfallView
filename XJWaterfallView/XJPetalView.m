@@ -38,6 +38,11 @@ const static CGFloat EDGE_MARGIN = 1.0f;
     return self;
 }
 
+- (void) dealloc {
+    [self setReuseIdentifier:nil];
+    [self setImageView:nil];
+}
+
 
 #pragma mark - Public methods
 

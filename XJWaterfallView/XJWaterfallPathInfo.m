@@ -24,6 +24,13 @@
 
 @implementation XJWaterfallPathInfo
 
+#pragma mark - Initializers and uninitializers
+
+- (void) dealloc {
+    [self setPetalViewInfos:nil];
+}
+
+
 #pragma mark - Public methods
 
 @synthesize column = column_;

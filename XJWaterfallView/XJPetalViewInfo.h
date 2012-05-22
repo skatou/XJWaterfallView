@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface XJPetalViewInfo : NSObject {
-@private
-    NSUInteger index_;
-    NSUInteger row_;
-    CGRect frame_;
-}
+@interface XJPetalViewInfo : NSObject
 @property (nonatomic, assign) NSUInteger index;
 @property (nonatomic, assign) NSUInteger row;
 @property (nonatomic, assign) CGRect frame;
