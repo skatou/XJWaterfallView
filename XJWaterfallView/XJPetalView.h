@@ -12,7 +12,7 @@
 @interface XJPetalView : UIView
 - (id) initWithReuseIdentifier:(NSString*)reuseIdentifier;
 
-@property (nonatomic, strong, readonly) NSString* reuseIdentifier;
+@property (nonatomic, copy, readonly) NSString* reuseIdentifier;
 @property (nonatomic, strong, readonly) UIImageView* imageView;
 
 - (void) prepareForReuse;

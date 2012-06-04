@@ -14,7 +14,7 @@
     NSString* reuseIdentifier_;
     UIImageView* imageView_;
 }
-@property (nonatomic, strong) NSString* reuseIdentifier;
+@property (nonatomic, copy) NSString* reuseIdentifier;
 @property (nonatomic, strong) UIImageView* imageView;
 
 - (CGRect) imageViewFrame;
