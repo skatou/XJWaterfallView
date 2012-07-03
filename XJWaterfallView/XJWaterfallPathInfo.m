@@ -14,6 +14,7 @@
 @interface XJWaterfallPathInfo() {
 @private
     NSUInteger column_;
+    CGFloat headerHeight_;
     CGFloat x_;
     CGFloat width_;
     NSMutableArray* petalViewInfos_;
@@ -34,12 +35,13 @@
 #pragma mark - Public methods
 
 @synthesize column = column_;
+@synthesize headerHeight = headerHeight_;
 @synthesize x = x_;
 @synthesize width = width_;
 
 - (CGFloat) height {
     if ([self numberOfPetals] == 0) {
-        return 0.0f;
+        return [self headerHeight];
     } else {
         return CGRectGetMaxY([[[self petalViewInfos] lastObject] frame]);
     }

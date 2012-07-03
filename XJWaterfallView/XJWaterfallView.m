@@ -19,6 +19,7 @@
 @private
     __unsafe_unretained id<XJWaterfallViewDataSource> dataSource_;
     UIView* backgroundView_;
+    CGFloat headerHeight_;
     CGFloat petalViewGap_;
     CGFloat rightMargin_;
     NSArray* visiblePetalViews_;
@@ -77,7 +78,6 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
 - (void) dealloc {
     [self setDataSource:nil];
     [self setBackgroundView:nil];
-    [self setLoadMoreIndicator:nil];
     [self setVisiblePetalViews:nil];
     [self setReusablePetalViews:nil];
     [self setPathInfos:nil];
@@ -113,6 +113,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
     }
 }
 
+@synthesize headerHeight = headerHeight_;
 @synthesize petalViewGap = petalViewGap_;
 @synthesize rightMargin = rightMargin_;
 
@@ -258,6 +259,7 @@ static NSString* PETAL_VIEW_ROW_KEY = @"__PETAL_VIEW_ROW__";
         XJWaterfallPathInfo* pathInfo = [[XJWaterfallPathInfo alloc] init];
 
         [pathInfo setColumn:col];
+        [pathInfo setHeaderHeight:[self headerHeight]];
         [pathInfo setX:pathStartX];
         [pathInfo setWidth:pathWidth];
         [pathInfos addObject:pathInfo];

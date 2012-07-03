@@ -13,6 +13,7 @@
 
 @interface XJWaterfallPathInfo : NSObject
 @property (nonatomic, assign) NSUInteger column;
+@property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat x;
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign, readonly) CGFloat height;
